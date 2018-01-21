@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 const http = require('https')
 const axios = require('axios');
+const jquery = require('jquery');
 
-const base_url = 'https://api-us.faceplusplus.com/facepp/v3/compare';
-const key = 'RWUpRf_gxH6wLEawAfExUMKqzZqoIkFG';
-const secret = '4nVF7_oQRH8LpUMG7pMOVi8Mt4PsnGq1';
+const url = 'https://api-us.faceplusplus.com/facepp/v3/compare';
+const key = 'Wvvsi7CNw0KHoerBv3LPkp9lRLvHVBuF';
+const secret = '4V4JRv0S8jSlajpTqAHHSLkYGfZeCOfW';
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -18,7 +19,7 @@ router.post('/upload', function(req, res) {
   const img1 = req.body.imgData;
   const img2 = 'http://localhost:3000/data/' + key + '.jpg';
 
-  compare(img1, img2);
+  compare(img1, img2, req);
 
   res.redirect('/');
 })
@@ -28,18 +29,25 @@ router.get('/:key', function(req, res, next) {
   res.send(req.params)
 });
 
-function compare (img1, img2){
+function compare (img1, img2, req){
   console.log('COMPARING');
-  request_options = {
-    api_key: key,
-    api_secret: secret,
-    image_file1: img1,
+  data = {
+    api_key: "Wvvsi7CNw0KHoerBv3LPkp9lRLvHVBuF",
+    api_secret: "4V4JRv0S8jSlajpTqAHHSLkYGfZeCOfW",
+    image_base64_1: img1,
     image_url2: img2
   };
+  const confidence = .5;
+  const percentage = confidence * 100;
+  const message = 'the confidance level is ' + percentage+ '%';
+  // req.app.get('io').emmit('chat messages', message)
 
-  axios.post(base_url, request_options)
+  axios.post(url, data)
     .then((response) => {
-      console.log('confidence:', res.confidence);
+      console.log('confidence:', response.confidence);
+      if (response.confidence > .50) {
+        
+      }
     })
     .catch((error) => {
       console.error(error);

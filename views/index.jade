@@ -1,16 +1,17 @@
 extends layout
 
 block content
-  h1 FaceCard
+  div.container
+    h1 FaceCard
 
-  ul#messages
-  
-  include upload_form.html
+    ul#messages
+    
+    include upload_form.html
 
-  video#video(width='640', height='480', autoplay='')
-  canvas#canvas(width='640', height='480')
-  script(src='javascripts/faceplusplus.js')
-  script(src='/socket.io/socket.io.js')
-  script(src='https://code.jquery.com/jquery-1.11.1.js')
-  script(src='javascripts/receive.js')
+    video#video(width='640', height='480', autoplay='')
+    canvas#canvas(width='640', height='480')
+    script(src='javascripts/faceplusplus.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='https://code.jquery.com/jquery-1.11.1.js')
+    script(src='javascripts/receive.js')
 
